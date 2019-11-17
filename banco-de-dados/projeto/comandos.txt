@@ -1,0 +1,14 @@
+CRIA UM ARQUIVO package.json:
+npm init -y
+INSTALA AS DEPENDENCIAS DO PROJETO
+npm i -s knex mysql
+CRIAR O ARQUIVO knexfile.js
+npx knex init
+CRIA AS MIGRATE DAS TABELAS
+npx knex migrate:make tabela_perfis
+npx knex migrate:make tabela_usuarios
+npx knex migrate:make tabela_usuarios_perfis
+EXECUTA A MIGRATE
+npx knex migrate:latest
+DESFAZER A MIGRATE
+npx knex migrate:rollback
