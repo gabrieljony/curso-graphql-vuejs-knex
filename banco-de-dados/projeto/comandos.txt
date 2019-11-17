@@ -1,6 +1,9 @@
 EXTENÇÃO do VSCODE
 Code Runner
 
+FRAMEWORK KNEX.js
+http://knexjs.org/
+
 CRIA UM ARQUIVO package.json:
 npm init -y
 INSTALA AS DEPENDENCIAS DO PROJETO
