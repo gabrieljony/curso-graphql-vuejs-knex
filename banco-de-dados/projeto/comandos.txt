@@ -8,6 +8,7 @@ CRIA AS MIGRATE DAS TABELAS
 npx knex migrate:make tabela_perfis
 npx knex migrate:make tabela_usuarios
 npx knex migrate:make tabela_usuarios_perfis
+
 EXECUTA A MIGRATE
 npx knex migrate:latest
 DESFAZER A MIGRATE
