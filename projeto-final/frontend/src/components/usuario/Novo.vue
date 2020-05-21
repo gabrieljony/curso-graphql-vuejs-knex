@@ -65,46 +65,64 @@ export default {
       return (
         this.dados &&
         this.dados.perfis &&
-        this.dados.perfis.map((p) => p.rotulo).join(", ")
+        this.dados.perfis.map(p => p.rotulo).join(", ")
       );
     },
     perfisSelecionados() {
       if (this.usuario.perfis) {
-        return this.usuario.perfis.map((id) => ({ id }));
+        return this.usuario.perfis.map(id => ({ id }));
       } else {
         return null;
       }
     },
   },
-  apollo: {
-    // Query with parameters
-    perfis: {
-      query: gql`
-        query {
-          perfis {
-            id
-            rotulo
-          }
-        }
-      `,
-      // Reactive parameters
-      variables() {
-        // Use vue reactive properties here
-        return {
-          perfis: this.perfis,
-          error: null
-        };
-      },
-      error(error) { this.erros = error},
-    },
-  },
+  //   apollo: {
+  //     // Query with parameters
+  //     perfis: {
+  //       query: gql`
+  //         query {
+  //           perfis {
+  //             id
+  //             rotulo
+  //           }
+  //         }
+  //       `,
+  //       // Reactive parameters
+  //       variables() {
+  //         // Use vue reactive properties here
+  //         return {
+  //           perfis: this.perfis,
+  //           error: null,
+  //         };
+  //       },
+  //       error(error) {
+  //         this.erros = error;
+  //       },
+  //     },
+  //   },
   methods: {
     novoUsuario() {
       // implementar
     },
     obterPerfis() {
-      console.log(this.perfis);
-      
+    this.$apollo
+        .query({
+          query: gql`
+            query {
+              perfis {
+                id
+                rotulo
+              }
+            }
+          `,
+        })
+        .then(resultado => {
+          this.perfis = resultado.data.perfis;
+          this.erros = null;
+        })
+        .catch(e => {
+          this.erros = e;
+        });
     },
   },
 };
