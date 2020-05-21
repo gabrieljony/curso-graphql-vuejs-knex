@@ -2,7 +2,7 @@ const jwt = require("jwt-simple");
 
 module.exports = async ({ req }) => {
   // Apenas em desenvolvimento
-  await require("./simularUsuarioLogado")(req);
+  // await require("./simularUsuarioLogado")(req);
   const auth = req.headers.authorization;
   // console.log(auth)
   const token = auth && auth.substring(7);
@@ -40,7 +40,7 @@ module.exports = async ({ req }) => {
     validarAdmin() {
       if (!admin) throw err;
     },
-    
+
     validarUsuarioFiltro(filtro) {
       if (admin) return;
 
