@@ -1,11 +1,28 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app>
+    <v-app-bar app color="blue" dark>
+      <v-toolbar-title class="headline text-uppercase">
+        <span>GraphQL</span>
+        <span class="font-weight-light">Client</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-app-bar>
+    <v-content>
+      <Conteudo />
+    </v-content>
+  </v-app>
 </template>
 
-<style>
-</style>
+<script>
+import { mapActions } from "vuex";
+import Conteudo from "@/components/Conteudo";
+
+export default {
+  name: "App",
+  components: { Conteudo },
+  methods: mapActions(["setUsuario"]),
+  created() {
+    this.setUsuario(null);
+  },
+};
+</script>
