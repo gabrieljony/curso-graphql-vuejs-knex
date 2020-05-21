@@ -52,7 +52,7 @@ export default {
     },
     methods: {
         excluirUsuario() {
-             this.$api.mutate({
+             this.$apollo.mutate({
                 mutation: gql`mutation (
                     $id: Int
                     $email: String
