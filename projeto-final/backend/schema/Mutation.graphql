@@ -1,6 +1,13 @@
 type Mutation {
     # Virgula opcional
     # Mutations de Usuario
+
+    #Essa Mutation será o cadastro de usuário comum para todos no sistema
+    registrarUsuario(
+        dados: UsuarioRegistrarInput!
+    ): Usuario!
+
+    #Essa Mutation será cadastrada apenas pelo Administrador do sistema
     novoUsuario(
         dados: UsuarioInput!
     ): Usuario!
