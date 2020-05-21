@@ -76,7 +76,7 @@ const mutations = {
       const usuario = await obterUsuario(_, { filtro });
       if (usuario) {
         const { id } = usuario;
-        if (dados.perfis) {
+        if (context.admin && dados.perfis) {
           await db("usuarios_perfis").where({ usuario_id: id }).delete();
 
           for (let filtro of dados.perfis) {
