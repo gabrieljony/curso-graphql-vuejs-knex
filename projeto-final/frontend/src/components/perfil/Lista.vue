@@ -28,6 +28,7 @@
 
 <script>
 import Erros from '../comum/Erros'
+import gql from 'graphql-tag'
 
 export default {
     components: { Erros },
@@ -37,14 +38,27 @@ export default {
             perfis: [],
             headers: [
                 { text: 'ID', value: 'id' },
-                { text: 'Nome', value: 'name' },
+                { text: 'Nome', value: 'nome' },
                 { text: 'Rótulo', value: 'rotulo' },
             ],
         }
     },
     methods: {
         obterPerfis() {
-            // implementar
+            this.$apollo.query({
+                query: gql`query {
+                    perfis { 
+                        id nome rotulo
+                    }
+                }`,
+                fetchPolicy: 'network-only'
+            }).then(resultado => {
+                this.perfis = resultado.data.perfis
+                this.erros = null
+            }).catch(e => {
+                this.perfis = []
+                this.erros = e
+            })
         }
     }
 }
