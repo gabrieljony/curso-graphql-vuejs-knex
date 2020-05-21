@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import Erros from "../comum/Erros";
-import gql from "graphql-tag";
+import Erros from '../comum/Erros'
+import gql from 'graphql-tag'
 
 export default {
   components: { Erros },
@@ -57,24 +57,24 @@ export default {
       usuario: {},
       perfis: [],
       dados: null,
-      erros: null,
-    };
+      erros: null
+    }
   },
   computed: {
     perfisRotulos() {
       return (
         this.dados &&
         this.dados.perfis &&
-        this.dados.perfis.map(p => p.rotulo).join(", ")
-      );
+        this.dados.perfis.map(p => p.rotulo).join(', ')
+      )
     },
     perfisSelecionados() {
       if (this.usuario.perfis) {
-        return this.usuario.perfis.map(id => ({ id }));
+        return this.usuario.perfis.map(id => ({ id }))
       } else {
-        return null;
+        return null
       }
-    },
+    }
   },
   //   apollo: {
   //     // Query with parameters
@@ -102,40 +102,50 @@ export default {
   //   },
   methods: {
     novoUsuario() {
-      this.$apollo.mutate({
-                mutation: gql`mutation (
-                    $nome: String
-                    $email: String
-                    $senha: String
-                    $perfis: [PerfilFiltro]
-                ) {
-                    novoUsuario (
-                        dados: { 
-                            nome: $nome
-                            email: $email
-                            senha: $senha
-                            perfis: $perfis
-                        }
-                    ) { 
-                        id nome email perfis { rotulo }
-                    }
-                }`,
-                variables: {
-                    nome: this.usuario.nome,
-                    email: this.usuario.email,
-                    senha: this.usuario.senha,
-                    perfis: this.perfisSelecionados
-                },
-            }).then(resultado => {
-                this.dados = resultado.data.novoUsuario
-                this.usuario = {}
-                this.erros = null
-            }).catch(e => {
-                this.erros = e
-            })
+      this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation(
+              $nome: String
+              $email: String
+              $senha: String
+              $perfis: [PerfilFiltro]
+            ) {
+              novoUsuario(
+                dados: {
+                  nome: $nome
+                  email: $email
+                  senha: $senha
+                  perfis: $perfis
+                }
+              ) {
+                id
+                nome
+                email
+                perfis {
+                  rotulo
+                }
+              }
+            }
+          `,
+          variables: {
+            nome: this.usuario.nome,
+            email: this.usuario.email,
+            senha: this.usuario.senha,
+            perfis: this.perfisSelecionados
+          }
+        })
+        .then(resultado => {
+          this.dados = resultado.data.novoUsuario
+          this.usuario = {}
+          this.erros = null
+        })
+        .catch(e => {
+          this.erros = e
+        })
     },
     obterPerfis() {
-    this.$apollo
+      this.$apollo
         .query({
           query: gql`
             query {
@@ -144,18 +154,18 @@ export default {
                 rotulo
               }
             }
-          `,
+          `
         })
         .then(resultado => {
-          this.perfis = resultado.data.perfis;
-          this.erros = null;
+          this.perfis = resultado.data.perfis
+          this.erros = null
         })
         .catch(e => {
-          this.erros = e;
-        });
-    },
-  },
-};
+          this.erros = e
+        })
+    }
+  }
+}
 </script>
 
 <style></style>

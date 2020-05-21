@@ -1,41 +1,41 @@
 <template>
-	<v-layout column>
-		<v-flex>
-			<UsuarioLogado />
-		</v-flex>
-		<v-flex>
-			<v-tabs centered  dark icons-and-text>
-				<v-tabs-slider color="white"></v-tabs-slider>
+  <v-layout column>
+    <v-flex>
+      <UsuarioLogado />
+    </v-flex>
+    <v-flex>
+      <v-tabs centered dark icons-and-text>
+        <v-tabs-slider color="white"></v-tabs-slider>
 
-				<v-tab v-if="!usuario">
-					Autenticação
-					<v-icon>fingerprint</v-icon>
-				</v-tab>
+        <v-tab v-if="!usuario">
+          Autenticação
+          <v-icon>fingerprint</v-icon>
+        </v-tab>
 
-				<v-tab>
-					Usuários
-					<v-icon>people</v-icon>
-				</v-tab>
+        <v-tab>
+          Usuários
+          <v-icon>people</v-icon>
+        </v-tab>
 
-				<v-tab>
-					Perfis
-					<v-icon>how_to_reg</v-icon>
-				</v-tab>
+        <v-tab>
+          Perfis
+          <v-icon>how_to_reg</v-icon>
+        </v-tab>
 
-				<v-tab-item v-if="!usuario">
-					<AutenticacaoAbas />
-				</v-tab-item>
+        <v-tab-item v-if="!usuario">
+          <AutenticacaoAbas />
+        </v-tab-item>
 
-				<v-tab-item>
-					<UsuarioAbas />
-				</v-tab-item>
+        <v-tab-item>
+          <UsuarioAbas />
+        </v-tab-item>
 
-				<v-tab-item>
-					<PerfilAbas />
-				</v-tab-item>
-			</v-tabs>
-		</v-flex>
-	</v-layout>
+        <v-tab-item>
+          <PerfilAbas />
+        </v-tab-item>
+      </v-tabs>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -46,22 +46,20 @@ import PerfilAbas from './perfil/Abas'
 import { mapGetters } from 'vuex'
 
 export default {
-	components: {
-		AutenticacaoAbas,
-		UsuarioLogado,
-		UsuarioAbas,
-		PerfilAbas,
-	},
-	computed: {
-        ...mapGetters(['usuario']),
-        perfis() {
-            if(!this.usuario && !this.usuario.perfis) return null
-            return this.usuario.perfis.map(p => p.rotulo).join(', ')
-        }
-    },
+  components: {
+    AutenticacaoAbas,
+    UsuarioLogado,
+    UsuarioAbas,
+    PerfilAbas
+  },
+  computed: {
+    ...mapGetters(['usuario']),
+    perfis() {
+      if (!this.usuario && !this.usuario.perfis) return null
+      return this.usuario.perfis.map(p => p.rotulo).join(', ')
+    }
+  }
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

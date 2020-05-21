@@ -6,6 +6,6 @@ import Vuetify from 'vuetify/lib'
 
 Vue.use(Vuetify)
 
-const opts = {iconfont: 'md'}
+const opts = { iconfont: 'md' }
 
 export default new Vuetify(opts)

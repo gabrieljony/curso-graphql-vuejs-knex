@@ -13,7 +13,9 @@
       </v-flex>
       <v-flex>
         <table v-if="table">
-          <caption>Lista de Usuários</caption>
+          <caption>
+            Lista de Usuários
+          </caption>
           <thead>
             <tr>
               <th scope="col">ID</th>
@@ -24,11 +26,13 @@
           </thead>
           <tbody>
             <tr v-for="(usuario, index) in usuarios" :key="index">
-              <td data-label="Account">{{usuario.id}}</td>
-              <td data-label="Due Date">{{usuario.nome}}</td>
-              <td data-label="Amount">{{usuario.email}}</td>
-              <td data-label="Period">{{usuario.perfis.map((p) => p.rotulo).join(", ")}}</td>
-            </tr> 
+              <td data-label="Account">{{ usuario.id }}</td>
+              <td data-label="Due Date">{{ usuario.nome }}</td>
+              <td data-label="Amount">{{ usuario.email }}</td>
+              <td data-label="Period">
+                {{ usuario.perfis.map(p => p.rotulo).join(', ') }}
+              </td>
+            </tr>
           </tbody>
         </table>
       </v-flex>
@@ -37,8 +41,8 @@
 </template>
 
 <script>
-import Erros from "../comum/Erros";
-import gql from "graphql-tag";
+import Erros from '../comum/Erros'
+import gql from 'graphql-tag'
 
 export default {
   components: { Erros },
@@ -47,7 +51,7 @@ export default {
       erros: null,
       usuarios: [],
       table: false
-    };
+    }
   },
   methods: {
     obterUsuarios() {
@@ -66,26 +70,26 @@ export default {
               }
             }
           `,
-          fetchPolicy: "network-only",
+          fetchPolicy: 'network-only'
         })
-        .then((resultado) => {
-          this.usuarios = resultado.data.usuarios;
+        .then(resultado => {
+          this.usuarios = resultado.data.usuarios
           this.table = true
-          this.erros = null;
+          this.erros = null
         })
-        .catch((e) => {
-          this.usuarios = [];
+        .catch(e => {
+          this.usuarios = []
           this.table = false
-          this.erros = e;
-        });
-    },
+          this.erros = e
+        })
+    }
   }
-};
+}
 </script>
 
 <style scoped>
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   line-height: 1.25;
 }
 
@@ -100,24 +104,24 @@ table {
 
 table caption {
   font-size: 1.5em;
-  margin: .5em 0 .75em;
+  margin: 0.5em 0 0.75em;
 }
 
 table tr {
   background-color: #f8f8f8;
   border: 1px solid #ddd;
-  padding: .35em;
+  padding: 0.35em;
 }
 
 table th,
 table td {
-  padding: .625em;
+  padding: 0.625em;
   text-align: center;
 }
 
 table th {
-  font-size: .85em;
-  letter-spacing: .1em;
+  font-size: 0.85em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -129,7 +133,7 @@ table th {
   table caption {
     font-size: 1.3em;
   }
-  
+
   table thead {
     border: none;
     clip: rect(0 0 0 0);
@@ -140,20 +144,20 @@ table th {
     position: absolute;
     width: 1px;
   }
-  
+
   table tr {
     border-bottom: 3px solid #ddd;
     display: block;
-    margin-bottom: .625em;
+    margin-bottom: 0.625em;
   }
-  
+
   table td {
     border-bottom: 1px solid #ddd;
     display: block;
-    font-size: .8em;
+    font-size: 0.8em;
     text-align: right;
   }
-  
+
   table td::before {
     /*
     * aria-label has no advantage, it won't be read inside a table
@@ -164,7 +168,7 @@ table th {
     font-weight: bold;
     text-transform: uppercase;
   }
-  
+
   table td:last-child {
     border-bottom: 0;
   }
