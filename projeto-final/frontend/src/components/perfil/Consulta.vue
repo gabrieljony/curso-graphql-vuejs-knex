@@ -38,6 +38,7 @@
 
 <script>
 import Erros from '../comum/Erros'
+import gql from 'graphql-tag'
 
 export default {
     components: { Erros },
@@ -57,7 +58,32 @@ export default {
     },
     methods: {
         consultar() {
-            // implementar
+            this.$apollo.query({
+                query: gql`query (
+                    $id: Int
+                    $nome: String
+                ) {
+                    perfil (
+                        filtro: { 
+                            id: $id
+                            nome: $nome
+                        }
+                    ) { 
+                        id nome rotulo
+                    }
+                }`,
+                variables: {
+                    id: this.perfil.id,
+                    nome: this.perfil.nome
+                },
+                fetchPolicy: 'network-only'
+            }).then(resultado => {
+                this.dados = resultado.data.perfil
+                this.perfil = {}
+                this.erros = null
+            }).catch(e => {
+                this.erros = e
+            })
         }
     }
 }
