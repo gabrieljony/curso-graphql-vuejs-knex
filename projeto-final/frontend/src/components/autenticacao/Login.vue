@@ -41,6 +41,7 @@
 <script>
 import { mapActions } from 'vuex'
 import Erros from '../comum/Erros'
+import gql from 'graphql-tag'
 
 export default {
     components: { Erros },
@@ -60,7 +61,34 @@ export default {
     methods: {
         ...mapActions(['setUsuario']),
         login() {
-            // implementar
+            this.$apollo.query({
+                query: gql`query ($email: String!, $senha: String!) {
+                    login(dados: { 
+                            email: $email,
+                            senha: $senha
+                    }) { 
+                        id 
+                        nome 
+                        email 
+                        token 
+                        perfis { 
+                            nome 
+                            rotulo 
+                        }
+                    }
+                }`,
+                variables: {
+                    email: this.usuario.email,
+                    senha: this.usuario.senha,
+                },
+            }).then(resultado => {
+                this.dados = resultado.data.login
+                this.usuario = {}
+                this.erros = null
+                this.setUsuario(this.dados)
+            }).catch(e => {
+                this.erros = e
+            })
         }
     }
 }

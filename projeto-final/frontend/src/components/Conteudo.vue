@@ -7,7 +7,7 @@
 			<v-tabs centered  dark icons-and-text>
 				<v-tabs-slider color="white"></v-tabs-slider>
 
-				<v-tab>
+				<v-tab v-if="!usuario">
 					Autenticação
 					<v-icon>fingerprint</v-icon>
 				</v-tab>
@@ -22,7 +22,7 @@
 					<v-icon>how_to_reg</v-icon>
 				</v-tab>
 
-				<v-tab-item>
+				<v-tab-item v-if="!usuario">
 					<AutenticacaoAbas />
 				</v-tab-item>
 
@@ -43,6 +43,7 @@ import AutenticacaoAbas from './autenticacao/Abas'
 import UsuarioLogado from './autenticacao/UsuarioLogado'
 import UsuarioAbas from './usuario/Abas'
 import PerfilAbas from './perfil/Abas'
+import { mapGetters } from 'vuex'
 
 export default {
 	components: {
@@ -51,6 +52,13 @@ export default {
 		UsuarioAbas,
 		PerfilAbas,
 	},
+	computed: {
+        ...mapGetters(['usuario']),
+        perfis() {
+            if(!this.usuario && !this.usuario.perfis) return null
+            return this.usuario.perfis.map(p => p.rotulo).join(', ')
+        }
+    },
 }
 </script>
 
