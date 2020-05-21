@@ -10,7 +10,7 @@ const sql = `
     INNER JOIN perfis p ON up.perfil_id = p.id
   WHERE
     u.ativo = 1
-    AND p.nome = "Comum"
+    AND p.nome = :nome
   LIMIT 1
 `;
 
@@ -20,7 +20,7 @@ const getUsuario = async (nomePerfil) => {
 };
 
 module.exports = async req => {
-  const usuario = await getUsuario('comum')
+  const usuario = await getUsuario('admin')
   if(usuario){
     const { token } = await getUsuarioLogado(usuario)
     req.headers = {

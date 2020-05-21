@@ -5,16 +5,19 @@ const { usuario: obterUsuario } = require("../Query/usuario");
 
 const mutations = {
   registrarUsuario(_, { dados }) {
-      return mutations.novoUsuario(_, {
-          dados: {
-              nome: dados.nome,
-              email: dados.email,
-              senha: dados.senha,
-              perfis: null
-          }
-      })
+    return mutations.novoUsuario(_, {
+      dados: {
+        nome: dados.nome,
+        email: dados.email,
+        senha: dados.senha,
+        perfis: null,
+      },
+    });
   },
-  async novoUsuario(_, { dados }) {
+  async novoUsuario(_, { dados }, context) {
+    if (context) {
+      context.validarAdmin();
+    }
     try {
       const idsPerfis = [];
 
@@ -49,7 +52,10 @@ const mutations = {
       throw new Error(e.sqlMessage);
     }
   },
-  async excluirUsuario(_, args) {
+  async excluirUsuario(_, args, context) {
+    if (context) {
+      context.validarAdmin();
+    }
     try {
       const usuario = await obterUsuario(_, args);
       if (usuario) {
@@ -62,7 +68,10 @@ const mutations = {
       throw new Error(e.sqlMessage);
     }
   },
-  async alterarUsuario(_, { filtro, dados }) {
+  async alterarUsuario(_, { filtro, dados }, context) {
+    if (context) {
+      context.validarUsuarioFiltro(filtro);
+    }
     try {
       const usuario = await obterUsuario(_, { filtro });
       if (usuario) {
