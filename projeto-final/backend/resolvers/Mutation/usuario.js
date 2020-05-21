@@ -22,8 +22,6 @@ const mutations = {
       const idsPerfis = [];
 
       if (!dados.perfis || !dados.perfis.length) {
-        console.log("result", !dados.perfis)
-        console.log("result2",  !dados.perfis.length)
         dados.perfis = [
           {
             nome: "comum",
