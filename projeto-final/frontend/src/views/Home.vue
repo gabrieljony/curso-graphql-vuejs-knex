@@ -1,10 +1,14 @@
 <template>
-  <div class="home"></div>
+  <div class="home">
+    <Conteudo />
+  </div>
 </template>
 
 <script>
+import Conteudo from '@/components/Conteudo'
+
 export default {
   name: 'Home',
-  components: {}
+  components: { Conteudo }
 }
 </script>

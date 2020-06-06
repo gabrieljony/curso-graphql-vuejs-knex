@@ -8,18 +8,16 @@
       <v-spacer></v-spacer>
     </v-app-bar>
     <v-content>
-      <Conteudo />
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-import Conteudo from '@/components/Conteudo'
 
 export default {
   name: 'App',
-  components: { Conteudo },
   methods: mapActions(['setUsuario']),
   created() {
     this.setUsuario(null)
