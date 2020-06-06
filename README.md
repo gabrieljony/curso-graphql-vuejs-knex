@@ -64,6 +64,10 @@ Curso da [Cod3r](https://www.cod3r.com.br/) - GraphQL: Criando APIs Profissionai
 
     Seu site está sendo executado em `http://localhost:4000`
 
+## 💻 Template
+
+![home](index.png)
+
 ## 💻 Links
 
 [JWT](https://jwt.io/)
